@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OVE - Catálogo Exclusivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles/styles.css">
+  
+</head>
+<body>
+
+  <!-- PANTALLA PIN -->
+  <div id="lockScreen">
+    <div class="pin-box" id="pinBox">
+      <i class="fa-solid fa-shield-halved" style="font-size: 2.2rem; color: var(--gold); margin-bottom: 0.5rem;"></i>
+      <h3>Acceso Exclusivo</h3>
+      <p style="color: var(--text-muted); font-size: 0.8rem;">Ingresá el PIN de 6 dígitos</p>
+
+      <div class="pin-dots">
+        <div class="pin-dot" id="dot0"></div>
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+        <div class="pin-dot" id="dot4"></div>
+        <div class="pin-dot" id="dot5"></div>
+      </div>
+
+      <div class="pin-keypad">
+        <button class="key-btn" onclick="addPin('1')">1</button>
+        <button class="key-btn" onclick="addPin('2')">2</button>
+        <button class="key-btn" onclick="addPin('3')">3</button>
+        <button class="key-btn" onclick="addPin('4')">4</button>
+        <button class="key-btn" onclick="addPin('5')">5</button>
+        <button class="key-btn" onclick="addPin('6')">6</button>
+        <button class="key-btn" onclick="addPin('7')">7</button>
+        <button class="key-btn" onclick="addPin('8')">8</button>
+        <button class="key-btn" onclick="addPin('9')">9</button>
+        <button class="key-btn" onclick="clearPin()"><i class="fa-solid fa-rotate-left"></i></button>
+        <button class="key-btn" onclick="addPin('0')">0</button>
+        <button class="key-btn" onclick="deletePin()"><i class="fa-solid fa-delete-left"></i></button>
+      </div>
+      <p style="color: rgba(255,255,255,0.25); font-size: 0.7rem; margin-top: 10px;"></p>
+    </div>
+  </div>
+
+  <!-- OVERLAY Y BARRA LATERAL (DRAWER DE MARCAS) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="brand-sidebar" id="brandSidebar">
+    <div class="sidebar-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <i class="fa-solid fa-filter" style="color: var(--gold);"></i>
+        <h3>Filtrar Marca</h3>
+      </div>
+      <button class="btn-close-sidebar" onclick="toggleSidebar()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="sidebar-list" id="sidebarBrandList"></div>
+  </aside>
+
+  <!-- ENCABEZADO CON LOGO CENTRADO Y BOTONES DE INFORMACIÓN -->
+  <header>
+    <div class="header-brand-container">
+      <div class="main-logo-hero">
+        <img src="ove.jpeg" alt="OVE Logo" onerror="this.src='https://dummyimage.com/1500x280/070709/d4af37&text=OVE+IMPORTADOS'">
+      </div>
+      <div class="header-text-block">
+        
+        <h1 class="header-title">Catálogo Importado</h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Seleccioná cualquier modelo para ver su galería en alta definición</p>
+      </div>
+    </div>
+
+    <!-- ACCIONES PRINCIPALES: MARCAS, CÓMO COMPRAR, QUIÉNES SOMOS Y FORMA DE ENTREGA -->
+    <div class="header-actions-row">
+      <button class="btn-header-action highlight" onclick="toggleSidebar()">
+        <i class="fa-solid fa-layer-group"></i> Ver Marcas
+      </button>
+
+      <button class="btn-header-action" onclick="openInfoModal('modalComoComprar')">
+        <i class="fa-solid fa-bag-shopping"></i> Cómo comprar
+      </button>
+
+      <button class="btn-header-action" onclick="openInfoModal('modalQuienesSomos')">
+        <i class="fa-solid fa-circle-info"></i> Quiénes somos
+      </button>
+
+      <button class="btn-header-action" onclick="openInfoModal('modalFormaEntrega')">
+        <i class="fa-solid fa-truck-fast"></i> Forma de entrega
+      </button>
+    </div>
+
+    <!-- BUSCADOR -->
+    <div class="search-wrapper">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="searchInput" placeholder="Buscar modelo, marca o código (#551)..." oninput="handleSearch()">
+    </div>
+  </header>
+
+  <!-- CONTENEDOR DE PRODUCTOS -->
+  <main class="catalog-wrapper" id="catalogContainer"></main>
+
+  <!-- MODAL: CÓMO COMPRAR -->
+  <div class="info-modal-overlay" id="modalComoComprar" onclick="closeInfoModalOnOverlay(event, 'modalComoComprar')">
+    <div class="info-modal-card">
+      <button class="btn-close-modal" onclick="closeInfoModal('modalComoComprar')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="info-modal-header">
+        <i class="fa-solid fa-bag-shopping"></i>
+        <h2>Cómo comprar</h2>
+      </div>
+      <div class="info-modal-body">
+        <p><span class="info-highlight">1.</span> Elegí tu marca y tocá para ver sus modelos, fotos y videos.</p>
+        <p><span class="info-highlight">2.</span> Una vez elegidos la marca y el modelo, escribinos por WhatsApp con el nombre de la marca y el # con el número de modelo. También podés sacar una captura de pantalla del modelo que elegiste y enviárnosla para hacer tu encargo.</p>
+        <p><span class="info-highlight">3.</span> Cuando recibamos tu consulta, te informamos el precio y te respondemos cualquier duda que tengas.</p>
+        <p><span class="info-highlight">4.</span> Por último, confirmás tu pedido y listo.</p>
+        <p style="margin-top: 1.2rem; border-top: 1px solid rgba(212, 175, 55, 0.15); padding-top: 1rem; color: var(--gold-light); font-weight: 600;">
+          <i class="fa-solid fa-circle-check"></i> Todos nuestros lentes se venden por encargo, y te acompañamos en cada paso.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: QUIÉNES SOMOS -->
+  <div class="info-modal-overlay" id="modalQuienesSomos" onclick="closeInfoModalOnOverlay(event, 'modalQuienesSomos')">
+    <div class="info-modal-card">
+      <button class="btn-close-modal" onclick="closeInfoModal('modalQuienesSomos')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="info-modal-header">
+        <i class="fa-solid fa-circle-info"></i>
+        <h2>Quiénes somos</h2>
+      </div>
+      <div class="info-modal-body">
+        <p><strong class="info-highlight">OVE</strong> es tu espacio para encontrar lentes importados de las marcas más reconocidas. Contamos con más de 30 marcas, cada una con sus modelos, para que elijas el que mejor va con tu estilo.</p>
+        <p>Creemos que un buen par de gafas no solo completa un look: expresa quién sos. Colecciones que combinan estilo, innovación y calidad para acompañarte en cada momento.</p>
+        <p>Trabajamos para que cada compra sea simple, segura y confiable, acercando a Argentina productos de calidad.</p>
+        <p style="margin-top: 1.2rem; border-top: 1px solid rgba(212, 175, 55, 0.15); padding-top: 1rem; color: var(--gold-light); font-weight: 600;">
+          <i class="fa-solid fa-glasses"></i> Nuestras ventas son por encargo y con atención personalizada por WhatsApp.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: FORMA DE ENTREGA -->
+  <div class="info-modal-overlay" id="modalFormaEntrega" onclick="closeInfoModalOnOverlay(event, 'modalFormaEntrega')">
+    <div class="info-modal-card">
+      <button class="btn-close-modal" onclick="closeInfoModal('modalFormaEntrega')">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="info-modal-header">
+        <i class="fa-solid fa-truck-fast"></i>
+        <h2>Forma de entrega</h2>
+      </div>
+      <div class="info-modal-body">
+        <p>Una vez realizado tu encargo, lo programamos junto con los demás pedidos para hacer la compra internacional.</p>
+        <p><strong class="info-highlight">Plazo de entrega:</strong> Es de 25 a 30 días hábiles. Puede ser algo menor o demorar unos días más, según el transporte aéreo y los tiempos de aduana.</p>
+        <p>Cuando tu pedido llega, te avisamos y te lo entregamos ese mismo día.</p>
+        <p style="margin-top: 1.2rem; border-top: 1px solid rgba(212, 175, 55, 0.15); padding-top: 1rem; color: var(--gold-light); font-weight: 600;">
+          <i class="fa-solid fa-clock-rotate-left"></i> Mientras esperás, podés consultarnos cuánto falta para tu entrega: hacemos un seguimiento exhaustivo de cada pedido, todo el tiempo.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE DE PRODUCTO -->
+  <div class="modal-overlay" id="productModal" onclick="closeModalOnOverlay(event)">
+    <div class="modal-container">
+      <button class="btn-close-modal" onclick="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="gallery-view">
+        <div class="main-image-wrap">
+          <img id="modalMainImg" src="" alt="Vista previa">
+        </div>
+        <div class="thumbnails-row" id="modalThumbnails"></div>
+      </div>
+
+      <div class="modal-info">
+        <div>
+          <div class="modal-tag" id="modalBrandTag">MARCA / CÓDIGO</div>
+          <h2 class="modal-title" id="modalTitle">Nombre del Producto</h2>
+          <p class="modal-desc" id="modalDescription">Descripción completa del artículo.</p>
+        </div>
+        
+        <div>
+          <div style="font-size: 0.85rem; color: var(--gold-light); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
+            <i class="fa-solid fa-circle-check"></i> Calidad Premium Importada • Stock Confirmado
+          </div>
+          <a href="#" id="modalWsLink" target="_blank" class="btn-ws-modal">
+            <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <!-- Columna 1: Marca y Eslogan -->
+      <div class="footer-brand">
+        <h3>OVE IMPORTADOS</h3>
+        <p>Tu estilo. Tu mirada. Colecciones seleccionadas de lentes de sol y armazones importados con atención personalizada por encargo.</p>
+      </div>
+
+      <!-- Columna 2: Información de Compra (Activan los modales) -->
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-circle-question"></i> Información</h4>
+        <ul class="footer-links">
+          <li>
+            <button class="footer-btn-link" onclick="openInfoModal('modalComoComprar')">
+              <i class="fa-solid fa-angle-right" style="font-size: 0.75rem; color: var(--gold);"></i> Cómo comprar
+            </button>
+          </li>
+          <li>
+            <button class="footer-btn-link" onclick="openInfoModal('modalQuienesSomos')">
+              <i class="fa-solid fa-angle-right" style="font-size: 0.75rem; color: var(--gold);"></i> Quiénes somos
+            </button>
+          </li>
+          <li>
+            <button class="footer-btn-link" onclick="openInfoModal('modalFormaEntrega')">
+              <i class="fa-solid fa-angle-right" style="font-size: 0.75rem; color: var(--gold);"></i> Forma de entrega
+            </button>
+          </li>
+          <li>
+            <button class="footer-btn-link" onclick="toggleSidebar()">
+              <i class="fa-solid fa-angle-right" style="font-size: 0.75rem; color: var(--gold);"></i> Catálogo de marcas
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto y Redes -->
+      <div class="footer-col">
+        <h4><i class="fa-solid fa-headset"></i> Contacto Directo</h4>
+        <ul class="footer-links">
+          <li>
+            <a href="https://wa.me/3425080922?text=Hola,%20quisiera%20hacer%20un%20pedido%20o%20consulta" target="_blank" class="footer-social-link ws">
+              <i class="fa-brands fa-whatsapp" style="font-size: 1.1rem; color: var(--primary);"></i> WhatsApp 
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/maxi.buchini.levenberg" target="_blank" class="footer-social-link ig">
+              <i class="fa-brands fa-instagram" style="font-size: 1.1rem; color: #fd5949;"></i> Instagram Oficial
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Derechos Reservados -->
+    <div class="footer-bottom">
+      <div>
+        © 2026 OVE Importados. Todos los derechos reservados.
+      </div>
+      <div>
+        Desarrollado y mantenido por <a href="#" target="_blank">lea tech 2026</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOTANTES -->
+  <a href="https://wa.me/3425080922?text=Hola,%20quisiera%20hacer%20una%20consulta%20por%20unos%20lentes" target="_blank" class="whatsapp-floating" title="WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <a href="https://instagram.com/maxi.buchini.levenberg" target="_blank" class="instagram-floating" title="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
+
+  <!-- ZOOM -->
+  <div class="zoom-modal" id="zoomModal" onclick="closeZoom()">
+    <button class="btn-close-zoom" onclick="closeZoom()" title="Cerrar">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+    <img id="zoomImage" src="" alt="Foto ampliada" onclick="event.stopPropagation(); closeZoom();">
+  </div>
+  <script src="js/script.js" defer></script>
+
+</body>
+</html>
