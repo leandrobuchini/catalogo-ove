@@ -128,7 +128,7 @@
         btn.className = "sidebar-item";
         const count = group.items ? group.items.length : 0;
         btn.innerHTML = `
-          <span><i class="fa-solid ${group.icono || 'fa-glasses'}" style="margin-right: 8px;"></i> ${group.marca}</span>
+          <span style="display:flex;align-items:center;">${group.logo ? `<img class="sb-logo" src="${group.logo}" alt="">` : `<i class="fa-solid ${group.icono || 'fa-glasses'}" style="margin-right: 8px;"></i>`} ${group.marca}</span>
           <span style="font-size: 0.75rem; opacity: 0.8;">${count}</span>
         `;
         btn.onclick = () => selectBrand(group.marca, btn);
@@ -145,7 +145,8 @@
     }
 
     function applyFilters() {
-      const q = document.getElementById("searchInput").value.toLowerCase().trim();
+      const norm = s => (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      const q = norm(document.getElementById("searchInput").value.trim());
 
       const filtered = catalogData
         .filter(brandGroup => {
@@ -155,12 +156,12 @@
         .map(brandGroup => {
           if (!q) return brandGroup;
 
-          const matchesBrand = brandGroup.marca.toLowerCase().includes(q);
+          const matchesBrand = norm(brandGroup.marca).includes(q);
           const filteredItems = brandGroup.items.filter(item => {
             return matchesBrand || 
-                   item.nombre.toLowerCase().includes(q) || 
-                   item.codigo.toLowerCase().includes(q) || 
-                   item.descripcion.toLowerCase().includes(q);
+                   norm(item.nombre).includes(q) || 
+                   norm(item.codigo).includes(q) || 
+                   norm(item.descripcion).includes(q);
           });
 
           return { ...brandGroup, items: filteredItems };
@@ -189,9 +190,9 @@
         parentCard.innerHTML = `
           <div class="brand-header">
             <div class="brand-title-wrap">
-              <i class="fa-solid ${brandGroup.icono || 'fa-glasses'}"></i>
+              ${brandGroup.logo ? `<img class="brand-logo" src="${brandGroup.logo}" alt="${brandGroup.marca}">` : `<i class="fa-solid ${brandGroup.icono || 'fa-glasses'}"></i>`}
               <div>
-                <h2>${brandGroup.marca}</h2>
+                <h2 class="${brandGroup.logo ? 'sr-only' : ''}">${brandGroup.marca}</h2>
                 <p style="color: var(--text-muted); font-size: 0.85rem;">${brandGroup.descripcion}</p>
               </div>
             </div>
@@ -223,7 +224,7 @@
               <p class="product-desc">${prod.descripcion}</p>
               <div class="product-footer">
                 <span class="btn-view-details">Ver galería <i class="fa-solid fa-arrow-right"></i></span>
-                <span style="font-size: 0.75rem; color: var(--gold-light); font-weight: 600;">● Disponible</span>
+                <span style="font-size: 0.75rem; color: var(--gold-light); font-weight: 600;">● Por encargo</span>
               </div>
             </div>
           `;
@@ -246,10 +247,12 @@
       document.getElementById("modalTitle").innerText = product.nombre;
       document.getElementById("modalDescription").innerText = product.descripcion;
 
-      const wsText = encodeURIComponent(`Hola, me interesa el modelo:\n*${brandName} - ${product.nombre}*\nCódigo: ${product.codigo} (${product.id})\n¿Tienen stock disponible?`);
+      const wsText = encodeURIComponent(`Hola OVE, me interesa este modelo:\n*${product.nombre}*\n¿Me pasás el precio para hacer el encargo? ¡Gracias!`);
       document.getElementById("modalWsLink").href = `https://wa.me/${WHATSAPP_NUM}?text=${wsText}`;
 
       const fotos = (product.fotos && product.fotos.length > 0) ? product.fotos : [];
+      galleryFotos = fotos;
+      galleryIndex = 0;
       const mainImg = document.getElementById("modalMainImg");
       mainImg.src = sanitizePath(fotos[0] || "");
 
@@ -261,11 +264,7 @@
         thumb.className = `thumb-item ${index === 0 ? 'active' : ''}`;
         thumb.innerHTML = `<img src="${sanitizePath(fotoUrl)}" alt="Miniatura">`;
         
-        thumb.onclick = () => {
-          mainImg.src = sanitizePath(fotoUrl);
-          document.querySelectorAll(".thumb-item").forEach(t => t.classList.remove("active"));
-          thumb.classList.add("active");
-        };
+        thumb.onclick = () => setGalleryIndex(index);
 
         thumbsContainer.appendChild(thumb);
       });
@@ -274,9 +273,8 @@
     }
 
     document.getElementById('modalMainImg').addEventListener('click', () => {
-      const currentSrc = document.getElementById('modalMainImg').src;
-      if (!currentSrc) return;
-      document.getElementById('zoomImage').src = currentSrc;
+      if (!galleryFotos.length) return;
+      updateZoom();
       document.getElementById('zoomModal').classList.add('active');
     });
 
@@ -299,4 +297,50 @@
           toggleSidebar();
         }
       }
+    });
+
+    // GALERÍA: NAVEGAR ENTRE FOTOS (flechas, teclado y deslizar)
+    let galleryFotos = [];
+    let galleryIndex = 0;
+
+    function updateZoom() {
+      if (!galleryFotos.length) return;
+      document.getElementById('zoomImage').src = sanitizePath(galleryFotos[galleryIndex]);
+      document.getElementById('zoomCounter').innerText = `${galleryIndex + 1} / ${galleryFotos.length}`;
+      const multi = galleryFotos.length > 1;
+      document.getElementById('zoomPrev').style.display = multi ? '' : 'none';
+      document.getElementById('zoomNext').style.display = multi ? '' : 'none';
+      if (multi) new Image().src = sanitizePath(galleryFotos[(galleryIndex + 1) % galleryFotos.length]);
+    }
+
+    function setGalleryIndex(i) {
+      if (!galleryFotos.length) return;
+      galleryIndex = (i + galleryFotos.length) % galleryFotos.length;
+      document.getElementById('modalMainImg').src = sanitizePath(galleryFotos[galleryIndex]);
+      document.querySelectorAll('.thumb-item').forEach((t, k) => t.classList.toggle('active', k === galleryIndex));
+      const act = document.querySelector('.thumb-item.active');
+      if (act) act.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+      if (document.getElementById('zoomModal').classList.contains('active')) updateZoom();
+    }
+
+    function zoomStep(d) { setGalleryIndex(galleryIndex + d); }
+
+    window.addEventListener('keydown', (e) => {
+      const open = document.getElementById('zoomModal').classList.contains('active') ||
+                   document.getElementById('productModal').classList.contains('active');
+      if (!open) return;
+      if (e.key === 'ArrowRight') zoomStep(1);
+      if (e.key === 'ArrowLeft') zoomStep(-1);
+    });
+
+    let touchStartX = null;
+    ['zoomModal', 'modalMainImg'].forEach((id) => {
+      const el = document.getElementById(id);
+      el.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+      el.addEventListener('touchend', (e) => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+        if (Math.abs(dx) > 50) zoomStep(dx < 0 ? 1 : -1);
+      }, { passive: true });
     });

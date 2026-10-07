@@ -914,3 +914,129 @@
         text-align: center;
       }
     }
+
+
+    /* ===== TEMA OVE CLARO: fondo crema igual al logo ===== */
+    :root {
+      --bg-dark: #F3ECDF; --parent-card-bg: rgba(255,255,255,0.55); --child-card-bg: rgba(255,255,255,0.75);
+      --card-border: rgba(168,123,42,0.28); --gold: #a87b2a; --gold-light: #7e5a1b; --gold-hover: #8a6420;
+      --gold-gradient: linear-gradient(135deg, #d9b25a 0%, #b8893a 50%, #8f6420 100%);
+      --text-main: #2a2016; --text-muted: #6b5a43; --soft: #FBF7EF;
+    }
+    body { background-image: none; }
+    /* Pantalla del PIN */
+    #lockScreen { background: var(--bg-dark); backdrop-filter: none; }
+    .pin-box { background: transparent; border: 0; box-shadow: none; max-width: 360px; padding: 1rem 1.2rem; }
+    .pin-box h3 { color: var(--text-main); font-weight: 500; letter-spacing: 0.02em; }
+    .lock-logo, .main-logo-hero img {
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 50%, transparent 72%);
+      mask-image: radial-gradient(ellipse at center, #000 50%, transparent 72%);
+    }
+    .lock-logo { display: block; width: 78%; max-width: 300px; height: auto; margin: -6px auto -4px; }
+    .key-btn { background: rgba(255,255,255,0.55); color: var(--text-main); }
+    .key-btn:hover { background: rgba(168,123,42,0.16); color: var(--gold-light); }
+    .pin-dot.filled { box-shadow: 0 0 8px rgba(168,123,42,0.45); }
+    @media (max-height: 700px) { .key-btn { height: 44px; } .pin-dots { margin: 1rem 0; } .lock-logo { width: 62%; } }
+    /* Logo de cabecera */
+    .main-logo-hero img { filter: none; border-radius: 0; width: auto; max-width: 100%; height: auto; }
+    .header-text-block { margin: 1.8rem auto 0; }
+    /* Menú lateral */
+    .sidebar-overlay { background: rgba(42,32,22,0.45); }
+    .brand-sidebar { background: var(--soft); box-shadow: 12px 0 35px rgba(60,40,10,0.18); }
+    .btn-close-sidebar, .btn-close-modal { background: rgba(0,0,0,0.07); color: var(--text-main); }
+    .sidebar-item { background: rgba(255,255,255,0.5); border-color: rgba(168,123,42,0.18); }
+    .sidebar-item.active { color: #fff; }
+    /* Botones y buscador */
+    .btn-header-action { background: rgba(255,255,255,0.55); }
+    .btn-header-action.highlight { color: #fff; }
+    .btn-header-action.highlight i { color: #fff; }
+    .search-wrapper input { background: rgba(255,255,255,0.6); color: var(--text-main); }
+    /* Ventanas */
+    .info-modal-overlay, .modal-overlay { background: rgba(42,32,22,0.55); }
+    .info-modal-card, .modal-container { background: var(--soft); box-shadow: 0 25px 60px rgba(60,40,10,0.28); }
+    .main-image-wrap, .thumb-item, .product-img-box { background: #ebe1cd; }
+    /* Tarjetas */
+    .brand-parent-card { box-shadow: 0 10px 28px rgba(60,40,10,0.1); }
+    .product-card { border-color: rgba(168,123,42,0.18); }
+    .product-card:hover { box-shadow: 0 10px 26px rgba(60,40,10,0.18); }
+    .badge-code { background: rgba(255,255,255,0.9); }
+    .product-footer { border-top-color: rgba(168,123,42,0.2); }
+    /* Pie de página */
+    .site-footer { background: #ECE2CE; }
+    .footer-col h4 { color: var(--text-main); }
+    .footer-social-link:hover { color: var(--text-main); }
+    .footer-bottom { color: var(--text-muted); }
+
+    /* ===== ZOOM: flechas y contador ===== */
+    .zoom-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
+      background: rgba(255,255,255,0.18); color: #fff; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center; z-index: 2;
+    }
+    .zoom-nav:hover { background: rgba(255,255,255,0.32); }
+    .zoom-prev { left: 1rem; } .zoom-next { right: 1rem; }
+    .zoom-counter { position: absolute; bottom: 1.2rem; left: 50%; transform: translateX(-50%); color: #fff; font-size: 0.9rem; letter-spacing: 0.08em; }
+
+    /* ===== ICONOS FLOTANTES: leve vibración ===== */
+    .whatsapp-floating, .instagram-floating { animation: ove-vibrar 4s ease-in-out infinite; }
+    .instagram-floating { animation-delay: 1.4s; }
+    @keyframes ove-vibrar {
+      0%, 84%, 100% { transform: rotate(0); }
+      86% { transform: rotate(-12deg); } 88% { transform: rotate(10deg); } 90% { transform: rotate(-8deg); }
+      92% { transform: rotate(6deg); } 94% { transform: rotate(-3deg); }
+    }
+    @media (prefers-reduced-motion: reduce) { .whatsapp-floating, .instagram-floating { animation: none; } }
+
+    /* ===== LOGOS DE MARCAS ===== */
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .brand-logo { height: 46px; width: auto; max-width: 240px; object-fit: contain; }
+    .sb-logo { width: 46px; height: 26px; object-fit: contain; margin-right: 10px; flex: none; }
+    @media (max-width: 768px) { .brand-logo { height: 38px; max-width: 170px; } }
+
+    /* ===== AJUSTES FINALES ===== */
+    .brand-sidebar { box-shadow: none; }
+    .brand-sidebar.active { box-shadow: 12px 0 35px rgba(60,40,10,0.18); }
+    .main-logo-hero img { max-height: 340px; }
+    @media (max-width: 768px) {
+      .main-logo-hero img { max-height: 230px; }
+      .brand-header { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    }
+
+    /* Logo más grande en la pantalla del PIN */
+    .pin-box { max-width: 400px; }
+    .lock-logo { width: 115%; max-width: none; margin: -10px 0 -8px -7.5%; }
+    @media (max-height: 700px) { .lock-logo { width: 100%; margin: -10px 0 -8px 0; } }
+
+    /* ===== BOTONES EN UNA FILA + BOTÓN MARCAS JUNTO AL BUSCADOR ===== */
+    .header-actions-row { flex-wrap: nowrap; align-items: stretch; max-width: 700px; gap: 10px; }
+    .header-actions-row .btn-header-action { flex: 1 1 0; min-width: 0; justify-content: center; text-align: center; }
+    .search-row { display: flex; gap: 10px; max-width: 650px; margin: 1.5rem auto 0; align-items: stretch; }
+    .search-row .search-wrapper { flex: 1; min-width: 0; margin: 0; max-width: none; }
+    .btn-brands { border-radius: 18px; padding: 0 1.2rem; white-space: nowrap; }
+    @media (max-width: 600px) {
+      .header-actions-row { gap: 8px; }
+      .header-actions-row .btn-header-action { flex-direction: column; gap: 4px; padding: 0.65rem 0.3rem; font-size: 0.76rem; line-height: 1.15; border-radius: 12px; }
+      .header-actions-row .btn-header-action i { font-size: 1.05rem; }
+      .btn-brands { padding: 0 0.9rem; }
+    }
+
+    /* Logo de inicio un poco más grande */
+    .lock-logo, .main-logo-hero img {
+      -webkit-mask-image: radial-gradient(ellipse at center, #000 55%, transparent 80%);
+      mask-image: radial-gradient(ellipse at center, #000 55%, transparent 80%);
+    }
+    .main-logo-hero img { max-height: 380px; }
+    @media (max-width: 768px) { .main-logo-hero img { max-height: 250px; } }
+
+    /* Título "Elegí tu marca" más sutil */
+    .header-title { font-size: 2.1rem; font-weight: 700; }
+    @media (max-width: 768px) { .header-title { font-size: 1.7rem; } }
+
+    /* ===== LUPA DEL BUSCADOR: siempre centrada dentro de la barra ===== */
+    .search-wrapper { position: relative; display: block; }
+    .search-wrapper input { display: block; width: 100%; box-sizing: border-box; margin: 0; }
+    .search-wrapper i, .search-wrapper svg {
+      position: absolute; left: 1.2rem; top: 0; bottom: 0; margin: auto 0;
+      height: 1em; transform: none; pointer-events: none; color: var(--text-muted);
+    }

@@ -3,7 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OVE - Catálogo Exclusivo</title>
+  <title>OVE · Catálogo de lentes importados</title>
+  <meta name="description" content="OVE. Tu estilo. Tu mirada. Elegí tu marca y descubrí sus modelos. Ventas por encargo.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F3ECDF">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_AR">
+  <meta property="og:site_name" content="OVE">
+  <meta property="og:title" content="OVE · Catálogo de lentes importados">
+  <meta property="og:description" content="Tu estilo. Tu mirada. Elegí tu marca y descubrí sus modelos. Ventas por encargo.">
+  <meta property="og:url" content="https://catalogo-ove.vercel.app/">
+  <meta property="og:image" content="https://catalogo-ove.vercel.app/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +31,7 @@
   <!-- PANTALLA PIN -->
   <div id="lockScreen">
     <div class="pin-box" id="pinBox">
-      <i class="fa-solid fa-shield-halved" style="font-size: 2.2rem; color: var(--gold); margin-bottom: 0.5rem;"></i>
+      <img class="lock-logo" src="ove-logo.jpg" alt="OVE. Tu estilo. Tu mirada.">
       <h3>Acceso Exclusivo</h3>
       <p style="color: var(--text-muted); font-size: 0.8rem;">Ingresá el PIN de 6 dígitos</p>
 
@@ -66,20 +81,12 @@
   <header>
     <div class="header-brand-container">
       <div class="main-logo-hero">
-        <img src="ove.jpeg" alt="OVE Logo" onerror="this.src='https://dummyimage.com/1500x280/070709/d4af37&text=OVE+IMPORTADOS'">
-      </div>
-      <div class="header-text-block">
-        
-        <h1 class="header-title">Catálogo Importado</h1>
-        <p style="color: var(--text-muted); font-size: 0.95rem;">Seleccioná cualquier modelo para ver su galería en alta definición</p>
+        <img src="ove-logo.jpg" alt="OVE. Tu estilo. Tu mirada.">
       </div>
     </div>
 
     <!-- ACCIONES PRINCIPALES: MARCAS, CÓMO COMPRAR, QUIÉNES SOMOS Y FORMA DE ENTREGA -->
     <div class="header-actions-row">
-      <button class="btn-header-action highlight" onclick="toggleSidebar()">
-        <i class="fa-solid fa-layer-group"></i> Ver Marcas
-      </button>
 
       <button class="btn-header-action" onclick="openInfoModal('modalComoComprar')">
         <i class="fa-solid fa-bag-shopping"></i> Cómo comprar
@@ -94,10 +101,18 @@
       </button>
     </div>
 
+    <div class="header-text-block">
+      <h1 class="header-title">Elegí tu marca</h1>
+      <p style="color: var(--text-muted); font-size: 0.95rem;">Tocá una marca para ver sus modelos.</p>
+    </div>
+
     <!-- BUSCADOR -->
-    <div class="search-wrapper">
+    <div class="search-row">
+      <div class="search-wrapper">
       <i class="fa-solid fa-magnifying-glass"></i>
-      <input type="text" id="searchInput" placeholder="Buscar modelo, marca o código (#551)..." oninput="handleSearch()">
+      <input type="text" id="searchInput" placeholder="Buscar modelo o código" oninput="handleSearch()">
+    </div>
+      <button class="btn-header-action highlight btn-brands" onclick="toggleSidebar()" aria-label="Ver marcas"><i class="fa-solid fa-layer-group"></i> Marcas</button>
     </div>
   </header>
 
@@ -115,7 +130,7 @@
         <h2>Cómo comprar</h2>
       </div>
       <div class="info-modal-body">
-        <p><span class="info-highlight">1.</span> Elegí tu marca y tocá para ver sus modelos, fotos y videos.</p>
+        <p><span class="info-highlight">1.</span> Elegí tu marca y tocá para ver sus modelos.</p>
         <p><span class="info-highlight">2.</span> Una vez elegidos la marca y el modelo, escribinos por WhatsApp con el nombre de la marca y el # con el número de modelo. También podés sacar una captura de pantalla del modelo que elegiste y enviárnosla para hacer tu encargo.</p>
         <p><span class="info-highlight">3.</span> Cuando recibamos tu consulta, te informamos el precio y te respondemos cualquier duda que tengas.</p>
         <p><span class="info-highlight">4.</span> Por último, confirmás tu pedido y listo.</p>
@@ -191,7 +206,7 @@
         
         <div>
           <div style="font-size: 0.85rem; color: var(--gold-light); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 6px;">
-            <i class="fa-solid fa-circle-check"></i> Calidad Premium Importada • Stock Confirmado
+            <i class="fa-solid fa-circle-check"></i> Calidad Premium Importada • Por encargo
           </div>
           <a href="#" id="modalWsLink" target="_blank" class="btn-ws-modal">
             <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
@@ -282,6 +297,9 @@
     <button class="btn-close-zoom" onclick="closeZoom()" title="Cerrar">
       <i class="fa-solid fa-xmark"></i>
     </button>
+    <button class="zoom-nav zoom-prev" id="zoomPrev" onclick="event.stopPropagation(); zoomStep(-1)" aria-label="Foto anterior"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="zoom-nav zoom-next" id="zoomNext" onclick="event.stopPropagation(); zoomStep(1)" aria-label="Foto siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+    <div class="zoom-counter" id="zoomCounter"></div>
     <img id="zoomImage" src="" alt="Foto ampliada" onclick="event.stopPropagation(); closeZoom();">
   </div>
   <script src="js/script.js" defer></script>
