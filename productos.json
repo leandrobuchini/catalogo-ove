@@ -1,8 +1,9 @@
 [
   {
     "marca": "AUDI",
+    "logo": "logos/audi.png",
     "icono": "fa-car-side",
-    "descripcion": "Diseño deportivo de alta gama, armazones aerodinámicos y cristales polarizados.",
+    "descripcion": "Diseño deportivo de alta gama y armazones ultralivianos.",
     "items": [
       {
         "id": "audi--551",
@@ -147,6 +148,7 @@
   },
   {
     "marca": "BALENCIAGA",
+    "logo": "logos/balenciaga.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol BALENCIAGA.",
     "items": [
@@ -388,6 +390,7 @@
   },
   {
     "marca": "BOTTEGA VENETA",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol BOTTEGA VENETA.",
     "items": [
@@ -457,6 +460,7 @@
   },
   {
     "marca": "BURBERRY",
+    "logo": "logos/burberry.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol BURBERRY.",
     "items": [
@@ -1126,6 +1130,7 @@
   },
   {
     "marca": "BVLGARI",
+    "logo": "logos/bvlgari.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol BVLGARI.",
     "items": [
@@ -1274,6 +1279,7 @@
   },
   {
     "marca": "CARTIER",
+    "logo": "logos/cartier.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol CARTIER.",
     "items": [
@@ -2579,6 +2585,7 @@
   },
   {
     "marca": "CELINE",
+    "logo": "logos/celine.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol CELINE.",
     "items": [
@@ -3584,6 +3591,7 @@
   },
   {
     "marca": "CHANEL",
+    "logo": "logos/chanel.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol CHANEL.",
     "items": [
@@ -4286,6 +4294,7 @@
   },
   {
     "marca": "CHROME HEARTS",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol CHROME HEARTS.",
     "items": [
@@ -4413,6 +4422,7 @@
   },
   {
     "marca": "DIOR",
+    "logo": "logos/dior.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol DIOR.",
     "items": [
@@ -4936,6 +4946,7 @@
   },
   {
     "marca": "DITA",
+    "logo": "logos/dita.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol DITA.",
     "items": [
@@ -5032,6 +5043,7 @@
   },
   {
     "marca": "DOLCE & GABBANA",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol DOLCE & GABBANA.",
     "items": [
@@ -5591,6 +5603,7 @@
   },
   {
     "marca": "DUNHILL",
+    "logo": "logos/dunhill.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol DUNHILL.",
     "items": [
@@ -5650,6 +5663,7 @@
   },
   {
     "marca": "FENDI",
+    "logo": "logos/fendi.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol FENDI.",
     "items": [
@@ -6030,6 +6044,7 @@
   },
   {
     "marca": "FRED",
+    "logo": "logos/fred.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol FRED.",
     "items": [
@@ -6177,8 +6192,9 @@
   },
   {
     "marca": "GUCCI",
+    "logo": "logos/gucci.png",
     "icono": "fa-crown",
-    "descripcion": "Estilo vanguardista, diseño de pasarela y acabados dorados distintivos.",
+    "descripcion": "Estilo vanguardista y presencia distintiva.",
     "items": [
       {
         "id": "gucci--0859",
@@ -7220,6 +7236,7 @@
   },
   {
     "marca": "HERMES",
+    "logo": "logos/hermes.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol HERMES.",
     "items": [
@@ -7560,6 +7577,7 @@
   },
   {
     "marca": "JIMMY CHOO",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol JIMMY CHOO.",
     "items": [
@@ -7619,6 +7637,7 @@
   },
   {
     "marca": "JOHN DALIA",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol JOHN DALIA.",
     "items": [
@@ -7660,6 +7679,7 @@
   },
   {
     "marca": "LOEWE",
+    "logo": "logos/loewe.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol LOEWE.",
     "items": [
@@ -7802,6 +7822,7 @@
   },
   {
     "marca": "LOUIS VUITTON",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol LOUIS VUITTON.",
     "items": [
@@ -8221,6 +8242,7 @@
   },
   {
     "marca": "MAYBACH",
+    "logo": "logos/maybach.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol MAYBACH.",
     "items": [
@@ -8525,6 +8547,7 @@
   },
   {
     "marca": "MERCEDES-BENZ",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol MERCEDES-BENZ.",
     "items": [
@@ -8744,6 +8767,7 @@
   },
   {
     "marca": "MICHAEL KORS",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol MICHAEL KORS.",
     "items": [
@@ -8804,6 +8828,7 @@
   },
   {
     "marca": "MIU MIU",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol MIU MIU.",
     "items": [
@@ -10866,6 +10891,7 @@
   },
   {
     "marca": "MONTBLANC",
+    "logo": "logos/montblanc.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol MONTBLANC.",
     "items": [
@@ -10924,12 +10950,14 @@
   },
   {
     "marca": "NUEVOS",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol NUEVOS.",
     "items": []
   },
   {
     "marca": "OFF",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol OFF.",
     "items": [
@@ -10977,6 +11005,7 @@
   },
   {
     "marca": "OMEGA",
+    "logo": "logos/omega.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol OMEGA.",
     "items": [
@@ -11125,6 +11154,7 @@
   },
   {
     "marca": "PHILIPP PLEIN",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol PHILIPP PLEIN.",
     "items": [
@@ -11150,6 +11180,7 @@
   },
   {
     "marca": "PORSCHE DESIGN",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol PORSCHE DESIGN.",
     "items": [
@@ -11508,8 +11539,9 @@
   },
   {
     "marca": "PRADA",
+    "logo": "logos/prada.png",
     "icono": "fa-gem",
-    "descripcion": "Elegancia italiana, marcos oversized y detalles de lujo en cada terminación.",
+    "descripcion": "Elegancia italiana y acabados de lujo.",
     "items": [
       {
         "id": "prada--120",
@@ -12303,8 +12335,9 @@
   },
   {
     "marca": "RAY-BAN",
+    "logo": null,
     "icono": "fa-glasses",
-    "descripcion": "Clásicos icónicos, modelos Aviator y Wayfarer con máxima protección UV400.",
+    "descripcion": "Clásicos icónicos con máxima protección UV400.",
     "items": [
       {
         "id": "ray-ban--0298",
@@ -16011,6 +16044,7 @@
   },
   {
     "marca": "ROLEX",
+    "logo": "logos/rolex.png",
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol ROLEX.",
     "items": [
@@ -16045,6 +16079,7 @@
   },
   {
     "marca": "SAINT LAURENT",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol SAINT LAURENT.",
     "items": [
@@ -16284,6 +16319,7 @@
   },
   {
     "marca": "TIFFANY&CO",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol TIFFANY&CO.",
     "items": [
@@ -16361,6 +16397,7 @@
   },
   {
     "marca": "TOM FORD",
+    "logo": null,
     "icono": "fa-glasses",
     "descripcion": "Colección exclusiva de lentes de sol TOM FORD.",
     "items": [
@@ -16786,8 +16823,9 @@
   },
   {
     "marca": "VERSACE",
+    "logo": "logos/versace.png",
     "icono": "fa-shield-halved",
-    "descripcion": "Diseño audaz y reconocible, detalles barrocos y presencia imponente.",
+    "descripcion": "Diseño audaz con presencia imponente.",
     "items": [
       {
         "id": "versace--013",

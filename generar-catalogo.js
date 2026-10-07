@@ -3,56 +3,31 @@ import fs from 'fs';
 import path from 'path';
 
 const CARPETA_RAIZ = './LENTES-comprimido';
+const CARPETA_LOGOS = './logos';
 
 if (!fs.existsSync(CARPETA_RAIZ)) {
   console.error(`❌ No se encontró la carpeta "${CARPETA_RAIZ}".`);
   process.exit(1);
 }
 
-// 1. DICCIONARIO DE MARCAS: Íconos FontAwesome y descripciones a medida
-// Usamos claves en minúsculas para que coincida sin importar mayúsculas/minúsculas
+// Configuración opcional de marcas (íconos y descripciones personalizadas)
 const CONFIG_MARCAS = {
-  audi: {
-    icono: 'fa-car-side',
-    descripcion: 'Diseño deportivo de alta gama, armazones aerodinámicos y cristales polarizados.'
-  },
-  rayban: {
-    icono: 'fa-glasses',
-    descripcion: 'Clásicos icónicos, modelos Aviator y Wayfarer con máxima protección UV400.'
-  },
-  oakley: {
-    icono: 'fa-person-running',
-    descripcion: 'Rendimiento deportivo extremo, agarre antideslizante y resistencia a impactos.'
-  },
-  prada: {
-    icono: 'fa-gem',
-    descripcion: 'Elegancia italiana, marcos oversized y detalles de lujo en cada terminación.'
-  },
-  gucci: {
-    icono: 'fa-crown',
-    descripcion: 'Estilo vanguardista, diseño de pasarela y acabados dorados distintivos.'
-  },
-  armani: {
-    icono: 'fa-briefcase',
-    descripcion: 'Minimalismo ejecutivo, líneas sobrias y confort ultraliviano para el día a día.'
-  },
-  versace: {
-    icono: 'fa-shield-halved',
-    descripcion: 'Diseño audaz y reconocible, detalles barrocos y presencia imponente.'
-  },
-  bmw: {
-    icono: 'fa-gauge-high',
-    descripcion: 'Ingeniería de precisión, cristales antireflejo y detalles en fibra de carbono.'
-  }
+  audi: { icono: 'fa-car-side', descripcion: 'Diseño deportivo de alta gama y armazones ultralivianos.' },
+  rayban: { icono: 'fa-glasses', descripcion: 'Clásicos icónicos con máxima protección UV400.' },
+  oakley: { icono: 'fa-person-running', descripcion: 'Rendimiento deportivo extremo y cristales de alta definición.' },
+  prada: { icono: 'fa-gem', descripcion: 'Elegancia italiana y acabados de lujo.' },
+  gucci: { icono: 'fa-crown', descripcion: 'Estilo vanguardista y presencia distintiva.' },
+  armani: { icono: 'fa-briefcase', descripcion: 'Minimalismo ejecutivo y confort diario.' },
+  versace: { icono: 'fa-shield-halved', descripcion: 'Diseño audaz con presencia imponente.' },
+  bmw: { icono: 'fa-gauge-high', descripcion: 'Ingeniería de precisión y materiales premium.' }
 };
 
-// Configuración por defecto si la carpeta de la marca no está en el diccionario
 const DEFAULT_CONFIG = {
   icono: 'fa-glasses',
   descripcion: 'Modelos de sol seleccionados con cristales de alta calidad y protección UV.'
 };
 
-// 2. FUNCIÓN AUXILIAR: Búsqueda recursiva de imágenes
+// Búsqueda recursiva de imágenes por si hay subcarpetas
 function obtenerImagenesRecursivo(directorio) {
   let resultados = [];
   const items = fs.readdirSync(directorio, { withFileTypes: true });
@@ -68,23 +43,38 @@ function obtenerImagenesRecursivo(directorio) {
   return resultados;
 }
 
-// 3. PROCESAMIENTO DEL CATÁLOGO
+// 1. Obtener la lista de carpetas de marcas
 const marcas = fs.readdirSync(CARPETA_RAIZ, { withFileTypes: true })
   .filter(d => d.isDirectory())
   .map(d => d.name);
 
+// 2. Procesar cada marca y sus modelos
 const catalogo = marcas.map(marca => {
   const rutaMarca = path.join(CARPETA_RAIZ, marca);
-  const modelos = fs.readdirSync(rutaMarca, { withFileTypes: true })
-    .filter(d => d.isDirectory())
-    .map(d => d.name);
+  const claveMarca = marca.toLowerCase().replace(/[\s\-_]/g, '');
 
-  // Normalizar el nombre para buscar en el diccionario (ej: "RAY-BAN" -> "rayban")
-  const claveBusqueda = marca.toLowerCase().replace(/[\s\-_]/g, '');
-  const config = CONFIG_MARCAS[claveBusqueda] || {
+  // Buscar si existe el logo en la carpeta "logos"
+  const extensionesLogo = ['png', 'webp', 'svg', 'jpg', 'jpeg'];
+  let rutaLogo = null;
+
+  if (fs.existsSync(CARPETA_LOGOS)) {
+    for (const ext of extensionesLogo) {
+      const posibleLogo = path.join(CARPETA_LOGOS, `${claveMarca}.${ext}`);
+      if (fs.existsSync(posibleLogo)) {
+        rutaLogo = `logos/${claveMarca}.${ext}`;
+        break;
+      }
+    }
+  }
+
+  const config = CONFIG_MARCAS[claveMarca] || {
     ...DEFAULT_CONFIG,
     descripcion: `Colección exclusiva de lentes de sol ${marca}.`
   };
+
+  const modelos = fs.readdirSync(rutaMarca, { withFileTypes: true })
+    .filter(d => d.isDirectory())
+    .map(d => d.name);
 
   const items = modelos.map(modelo => {
     const rutaModelo = path.join(rutaMarca, modelo);
@@ -111,11 +101,19 @@ const catalogo = marcas.map(marca => {
 
   return {
     marca: marca,
+    logo: rutaLogo,
     icono: config.icono,
     descripcion: config.descripcion,
     items: items
   };
 });
 
+// 3. Guardar el archivo JSON
 fs.writeFileSync('productos.json', JSON.stringify(catalogo, null, 2), 'utf-8');
-console.log(`✅ productos.json actualizado con marcas personalizadas.`);
+
+const totalProductos = catalogo.reduce((acc, b) => acc + b.items.length, 0);
+console.log(`\n========================================`);
+console.log(`✅ productos.json actualizado con marcas y logos.`);
+console.log(`🏷️ Marcas procesadas: ${catalogo.length}`);
+console.log(`👓 Modelos indexados: ${totalProductos}`);
+console.log(`========================================\n`);
